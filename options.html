@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mera Social QR</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --ink:#1a1d1e;
+    --paper:#eef1ee;
+    --card:#ffffff;
+    --line:#d9ddd8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px;
+  }
+  .card{
+    background:var(--card);
+    width:100%;
+    max-width:380px;
+    border-radius:20px;
+    padding:28px 24px 32px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.25);
+    text-align:center;
+  }
+  h1{ font-size:22px; margin:0 0 4px; letter-spacing:-0.01em; }
+  p.sub{ margin:0 0 24px; font-size:14px; color:#6b7069; }
+  .switch{
+    display:flex; gap:8px; background:var(--paper);
+    border-radius:12px; padding:5px; margin-bottom:24px;
+  }
+  .switch button{
+    flex:1; border:none; background:transparent; padding:10px 6px;
+    font-size:13px; font-weight:600; border-radius:9px; cursor:pointer;
+    color:#6b7069; transition:background .2s, color .2s;
+  }
+  .switch button.active{
+    background:var(--card); color:var(--ink);
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  }
+  #qr-holder{
+    width:220px; height:220px; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border-radius:16px; border:1px solid var(--line);
+  }
+  .platform-name{ font-size:15px; font-weight:700; margin-bottom:2px; }
+  .platform-value{ font-size:13px; color:#6b7069; word-break:break-all; }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Mujhse Connect Karein</h1>
+    <p class="sub">Neeche platform chunein aur QR scan karein</p>
+
+    <div class="switch">
+      <button class="tab-btn active" data-platform="whatsapp">WhatsApp</button>
+      <button class="tab-btn" data-platform="instagram">Instagram</button>
+      <button class="tab-btn" data-platform="tiktok">TikTok</button>
+    </div>
+
+    <div id="qr-holder"></div>
+
+    <div class="platform-name" id="platform-name">WhatsApp</div>
+    <div class="platform-value" id="platform-value">+92 322 8921248</div>
+  </div>
+
+<script>
+  const profiles = {
+    whatsapp:  { link: "https://wa.me/923228921248", label: "WhatsApp", display: "+92 322 8921248" },
+    instagram: { link: "https://instagram.com/jantours.official", label: "Instagram", display: "@jantours.official" },
+    tiktok:    { link: "https://www.tiktok.com/@abu.baker", label: "TikTok", display: "@abu.baker" }
+  };
+
+  const holder = document.getElementById('qr-holder');
+  const nameEl = document.getElementById('platform-name');
+  const valueEl = document.getElementById('platform-value');
+  const buttons = document.querySelectorAll('.tab-btn');
+
+  function renderQR(platformKey){
+    const data = profiles[platformKey];
+    holder.innerHTML = "";
+    new QRCode(holder, {
+      text: data.link, width: 200, height: 200,
+      colorDark: "#1a1d1e", colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    nameEl.textContent = data.label;
+    valueEl.textContent = data.display;
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderQR(btn.dataset.platform);
+    });
+  });
+
+  renderQR('whatsapp');
+</script>
+
+</body>
+</html>
