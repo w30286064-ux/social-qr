@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mera Social QR</title>
+<title>My Social QR</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root{
@@ -55,36 +55,59 @@
   }
   .platform-name{ font-size:15px; font-weight:700; margin-bottom:2px; }
   .platform-value{ font-size:13px; color:#6b7069; word-break:break-all; }
+
+  .open-btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 22px;
+    background:var(--ink);
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    border-radius:10px;
+  }
+
+  .hint{
+    margin-top:12px;
+    font-size:11px;
+    color:#9a9e97;
+    line-height:1.5;
+  }
 </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>Mujhse Connect Karein</h1>
-    <p class="sub">Neeche platform chunein aur QR scan karein</p>
+    <h1>Connect With Me</h1>
+    <p class="sub">Choose a platform below and scan the QR</p>
 
     <div class="switch">
       <button class="tab-btn active" data-platform="whatsapp">WhatsApp</button>
       <button class="tab-btn" data-platform="instagram">Instagram</button>
-      <button class="tab-btn" data-platform="tiktok">TikTok</button>
+      <button class="tab-btn" data-platform="facebook">Facebook</button>
     </div>
 
     <div id="qr-holder"></div>
 
     <div class="platform-name" id="platform-name">WhatsApp</div>
-    <div class="platform-value" id="platform-value">+92 322 8921248</div>
+    <div class="platform-value" id="platform-value">+92 300 0857788</div>
+
+    <a id="open-link" href="#" target="_blank" class="open-btn">Open Directly</a>
+    <p class="hint">On this same phone? Tap the button above.<br>On another phone? Scan the QR code.</p>
   </div>
 
 <script>
   const profiles = {
-    whatsapp:  { link: "https://wa.me/923228921248", label: "WhatsApp", display: "+92 322 8921248" },
+    whatsapp:  { link: "https://wa.me/923000857788", label: "WhatsApp", display: "+92 300 0857788" },
     instagram: { link: "https://instagram.com/jantours.official", label: "Instagram", display: "@jantours.official" },
-    tiktok:    { link: "https://www.tiktok.com/@abu.baker", label: "TikTok", display: "@abu.baker" }
+    facebook:  { link: "https://www.facebook.com/JanTours", label: "Facebook", display: "JanTours" }
   };
 
   const holder = document.getElementById('qr-holder');
   const nameEl = document.getElementById('platform-name');
   const valueEl = document.getElementById('platform-value');
+  const openLink = document.getElementById('open-link');
   const buttons = document.querySelectorAll('.tab-btn');
 
   function renderQR(platformKey){
@@ -97,6 +120,7 @@
     });
     nameEl.textContent = data.label;
     valueEl.textContent = data.display;
+    openLink.href = data.link;
   }
 
   buttons.forEach(btn => {
