@@ -36,12 +36,17 @@
   h1{ font-size:22px; margin:0 0 4px; letter-spacing:-0.01em; }
   p.sub{ margin:0 0 24px; font-size:14px; color:#6b7069; }
   .switch{
-    display:flex; gap:8px; background:var(--paper);
-    border-radius:12px; padding:5px; margin-bottom:24px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    background:var(--paper);
+    border-radius:12px;
+    padding:5px;
+    margin-bottom:24px;
   }
   .switch button{
-    flex:1; border:none; background:transparent; padding:10px 6px;
-    font-size:13px; font-weight:600; border-radius:9px; cursor:pointer;
+    border:none; background:transparent; padding:10px 4px;
+    font-size:12px; font-weight:600; border-radius:9px; cursor:pointer;
     color:#6b7069; transition:background .2s, color .2s;
   }
   .switch button.active{
@@ -86,6 +91,8 @@
       <button class="tab-btn active" data-platform="whatsapp">WhatsApp</button>
       <button class="tab-btn" data-platform="instagram">Instagram</button>
       <button class="tab-btn" data-platform="facebook">Facebook</button>
+      <button class="tab-btn" data-platform="tiktok">TikTok</button>
+      <button class="tab-btn" data-platform="website">Website</button>
     </div>
 
     <div id="qr-holder"></div>
@@ -93,15 +100,17 @@
     <div class="platform-name" id="platform-name">WhatsApp</div>
     <div class="platform-value" id="platform-value">+92 300 0857788</div>
 
-    <a id="open-link" href="#" target="_blank" class="open-btn">Open Directly</a>
-    <p class="hint">On this same phone? Tap the button above.<br>On another phone? Scan the QR code.</p>
+    <a id="open-link" href="#" class="open-btn">Open Directly</a>
+    <p class="hint">Tapped "Open Directly"? Just use your phone's<br>back button to return here and pick another.</p>
   </div>
 
 <script>
   const profiles = {
     whatsapp:  { link: "https://wa.me/923000857788", label: "WhatsApp", display: "+92 300 0857788" },
     instagram: { link: "https://instagram.com/jantours.official", label: "Instagram", display: "@jantours.official" },
-    facebook:  { link: "https://www.facebook.com/JanTours", label: "Facebook", display: "JanTours" }
+    facebook:  { link: "https://www.facebook.com/JanTours", label: "Facebook", display: "JanTours" },
+    tiktok:    { link: "https://www.tiktok.com/@jantours.official?_r=1&_t=ZS-99SYKQLTf9Q", label: "TikTok", display: "@jantours.official" },
+    website:   { link: "https://www.jan-tours.com", label: "Website", display: "jan-tours.com" }
   };
 
   const holder = document.getElementById('qr-holder');
